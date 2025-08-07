@@ -109,3 +109,12 @@ func _ready() -> void:
 
 	rd.free()
 	rd = null
+
+# For clearing RIDs, we get the predelete notification for the node the script is attached to and if it is of some type, we free all RIDs we created:
+#func _notification(what: int) -> void:
+	#if what == NOTIFICATION_PREDELETE:
+		#rd.free_rid(buffers)
+		#rd.free_rid(uniform_set)
+		#rd.free_rid(shader_rid)
+		#rd.free_rid(pipeline)
+		#...
