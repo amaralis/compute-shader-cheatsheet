@@ -78,7 +78,8 @@ func _ready() -> void:
 	var num_datapoints: int = input.size() #I don't know what else to call this
 	var local_size: int = 128#the size of the local groups we set in the shader. This is not dynamic and must be hard-coded. Going for 128 on a single axis, because 128 is the maximum amount of threads (invocations) weaker hardware can spawn. Could as well be "x=64, y=2, z=1" or any combination where x*y*z=128 
 	var total_groups = (num_datapoints + (local_size -1)) / local_size #ceil(num_datapoints/128) -> in the case of an array of size 10, it is so few that it will only be 1 (1 * 128 = 128), which is the amount of threads/invocations we want to spawn, even though we could spawn as much as 1024 threads.
-	rd.compute_list_dispatch(compute_list, 5, 1, 1)
+	#This example is ridiculously inefficient, as we're spawning 128 threads/invocations when we only need 10. But we're never using the GPU to perform calculations on anything less than several hundreds or thousands of datapoints
+	rd.compute_list_dispatch(compute_list, total_groups, 1, 1)
 	
 	rd.compute_list_end()
 	
