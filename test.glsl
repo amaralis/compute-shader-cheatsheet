@@ -14,7 +14,7 @@ layout(std430, set = 0, binding = 0) buffer DirPosVal {
     Entity entities[];
 } ents;
 
-// UBO 1: total entity count
+// SSBO 1: total entity count
 layout(std430, set = 0, binding = 1) buffer Total {
     int num;
 } nums;
